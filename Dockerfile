@@ -38,7 +38,8 @@ COPY entrypoint.sh /app/entrypoint.sh
 
 RUN apt-get update && \
   apt-get install -y --no-install-recommends \
-  curl
+  curl \
+  librtlsdr0
 
 EXPOSE 5555
 
