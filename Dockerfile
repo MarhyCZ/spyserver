@@ -1,5 +1,5 @@
 # spyserver/Dockerfile
-FROM ubuntu:latest AS build
+FROM debian:bookworm-slim AS build
 
 WORKDIR /src
 
@@ -25,7 +25,7 @@ WORKDIR /src/spyserver
 RUN curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-arm64.tgz
 RUN tar xvfz spyserver.tgz
 
-FROM ubuntu:latest AS runtime
+FROM debian:bookworm-slim AS runtime
 
 # Airspy libs/binaries
 COPY --from=build /usr/local /usr/local
