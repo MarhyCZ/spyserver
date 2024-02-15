@@ -20,6 +20,12 @@ RUN git clone https://github.com/airspy/airspyone_host.git
 WORKDIR /src/airspyone_host
 RUN mkdir build && cd build && cmake ../ -DINSTALL_UDEV_RULES=ON && make -j`nproc` && make install -j`nproc` && ldconfig
 
+# Airspy HF+ Driver
+WORKDIR /app/
+RUN git clone https://github.com/airspy/airspyhf.git
+WORKDIR /app/airspyhf
+RUN mkdir build && cd build && cmake ../ -DINSTALL_UDEV_RULES=ON && make -j`nproc` && make install -j`nproc` && ldconfig
+
 # SpyServer
 WORKDIR /src/spyserver
 RUN curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-arm64.tgz
