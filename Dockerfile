@@ -30,7 +30,8 @@ RUN mkdir build && cd build && cmake ../ -DINSTALL_UDEV_RULES=ON && make -j`npro
 
 # SpyServer
 WORKDIR /src/spyserver
-RUN curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-${TARGETARCH}.tgz
+RUN if [ "$TARGETARCH" = "arm64" ]; then ARCHITECTURE=arm64; else ARCHITECTURE=x64; fi \
+  && curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-${ARCHITECTURE}.tgz
 RUN tar xvfz spyserver.tgz
 
 FROM debian:bookworm-slim AS runtime
