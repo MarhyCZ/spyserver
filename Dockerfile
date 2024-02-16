@@ -1,6 +1,8 @@
 # spyserver/Dockerfile
 FROM debian:bookworm-slim AS build
 
+ARG TARGETARCH
+
 WORKDIR /src
 
 # Install dependencies
@@ -28,7 +30,7 @@ RUN mkdir build && cd build && cmake ../ -DINSTALL_UDEV_RULES=ON && make -j`npro
 
 # SpyServer
 WORKDIR /src/spyserver
-RUN curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-arm64.tgz
+RUN curl -L -o spyserver.tgz https://airspy.com/downloads/spyserver-${TARGETARCH}.tgz
 RUN tar xvfz spyserver.tgz
 
 FROM debian:bookworm-slim AS runtime
